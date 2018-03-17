@@ -2,7 +2,7 @@
   "name": "quickgrid",
   "version": "1.0.0",
   "description": "quick jquery data grid",
-  "main": "quickgrid.js",
+  "main": "dist/quickgrid.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack && webpack-dev-server --open --config webpack.config.js",
