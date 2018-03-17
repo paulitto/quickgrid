@@ -1,123 +1,30 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'version',
+1 verbose cli   'patch' ]
 2 info using npm@3.10.10
 3 info using node@v6.10.1
-4 verbose publish [ '.' ]
-5 silly cache add args [ '.', null ]
-6 verbose cache add spec .
-7 silly cache add parsed spec Result {
-7 silly cache add   raw: '.',
-7 silly cache add   scope: null,
-7 silly cache add   escapedName: null,
-7 silly cache add   name: null,
-7 silly cache add   rawSpec: '.',
-7 silly cache add   spec: '/Users/paulitto/Dev/quickgrid',
-7 silly cache add   type: 'directory' }
-8 verbose addLocalDirectory /Users/paulitto/.npm/quickgrid/1.0.0/package.tgz not in flight; packing
-9 verbose correctMkdir /Users/paulitto/.npm correctMkdir not in flight; initializing
-10 info lifecycle quickgrid@1.0.0~prepublish: quickgrid@1.0.0
-11 silly lifecycle quickgrid@1.0.0~prepublish: no script for prepublish, continuing
-12 verbose tar pack [ '/Users/paulitto/.npm/quickgrid/1.0.0/package.tgz',
-12 verbose tar pack   '/Users/paulitto/Dev/quickgrid' ]
-13 verbose tarball /Users/paulitto/.npm/quickgrid/1.0.0/package.tgz
-14 verbose folder /Users/paulitto/Dev/quickgrid
-15 verbose addLocalTarball adding from inside cache /Users/paulitto/.npm/quickgrid/1.0.0/package.tgz
-16 verbose correctMkdir /Users/paulitto/.npm correctMkdir not in flight; initializing
-17 silly cache afterAdd quickgrid@1.0.0
-18 verbose afterAdd /Users/paulitto/.npm/quickgrid/1.0.0/package/package.json not in flight; writing
-19 verbose correctMkdir /Users/paulitto/.npm correctMkdir not in flight; initializing
-20 verbose afterAdd /Users/paulitto/.npm/quickgrid/1.0.0/package/package.json written
-21 silly publish { name: 'quickgrid',
-21 silly publish   version: '1.0.0',
-21 silly publish   description: 'quick jquery data grid',
-21 silly publish   main: 'dist/quickgrid.min.js',
-21 silly publish   scripts:
-21 silly publish    { test: 'echo "Error: no test specified" && exit 1',
-21 silly publish      start: 'webpack && webpack-dev-server --open --config webpack.config.js',
-21 silly publish      build: 'webpack' },
-21 silly publish   repository:
-21 silly publish    { type: 'git',
-21 silly publish      url: 'git+https://github.com/paulitto/quickgrid.git' },
-21 silly publish   keywords:
-21 silly publish    [ 'jquery-plugin',
-21 silly publish      'ecosystem:jquery',
-21 silly publish      'data grid',
-21 silly publish      'data-grid',
-21 silly publish      'datagrid',
-21 silly publish      'grid' ],
-21 silly publish   author: { name: 'Pavlo Tatarenko' },
-21 silly publish   license: 'MIT',
-21 silly publish   dependencies: { jquery: '^3.3.1' },
-21 silly publish   devDependencies:
-21 silly publish    { 'css-loader': '^0.28.11',
-21 silly publish      'style-loader': '^0.20.3',
-21 silly publish      'uglifyjs-webpack-plugin': '^1.2.4',
-21 silly publish      webpack: '^3.11.0',
-21 silly publish      'webpack-dev-server': '^2.11.1' },
-21 silly publish   readme: '# quickgrid\nquick and simple jquery data grid\n\n## usage\n\n    $(domElement).quickGrid({\n        data: [\n            {\n                property1: value,\n                property2: value\n            },\n            {\n                property1: value,\n                property2: value\n            }\n        ],\n        columns: {\n            date: {\n                property1: false,\n                title: "Title"\n            },\n            population: {\n                title: function (key) {\n                    return "Title";\n                }\n            }\n        }\n    })\n',
-21 silly publish   readmeFilename: 'README.md',
-21 silly publish   gitHead: '903bc08c3370570f8823ade16b737e5224f7db3b',
-21 silly publish   bugs: { url: 'https://github.com/paulitto/quickgrid/issues' },
-21 silly publish   homepage: 'https://github.com/paulitto/quickgrid#readme',
-21 silly publish   _id: 'quickgrid@1.0.0',
-21 silly publish   _shasum: 'cffc81cdf8562e89e622b20890f540baa2c06706',
-21 silly publish   _from: '.' }
-22 verbose getPublishConfig undefined
-23 silly mapToRegistry name quickgrid
-24 silly mapToRegistry using default registry
-25 silly mapToRegistry registry https://registry.npmjs.org/
-26 silly mapToRegistry data Result {
-26 silly mapToRegistry   raw: 'quickgrid',
-26 silly mapToRegistry   scope: null,
-26 silly mapToRegistry   escapedName: 'quickgrid',
-26 silly mapToRegistry   name: 'quickgrid',
-26 silly mapToRegistry   rawSpec: '',
-26 silly mapToRegistry   spec: 'latest',
-26 silly mapToRegistry   type: 'tag' }
-27 silly mapToRegistry uri https://registry.npmjs.org/quickgrid
-28 verbose publish registryBase https://registry.npmjs.org/
-29 silly publish uploading /Users/paulitto/.npm/quickgrid/1.0.0/package.tgz
-30 verbose request uri https://registry.npmjs.org/quickgrid
-31 verbose request sending authorization for write operation
-32 info attempt registry request try #1 at 9:10:11 PM
-33 verbose request using bearer token for auth
-34 verbose request id 3ea34e8dd15fa2e8
-35 http request PUT https://registry.npmjs.org/quickgrid
-36 http 403 https://registry.npmjs.org/quickgrid
-37 verbose headers { 'content-type': 'application/json',
-37 verbose headers   'cache-control': 'max-age=300',
-37 verbose headers   'content-length': '93',
-37 verbose headers   'accept-ranges': 'bytes',
-37 verbose headers   date: 'Sat, 17 Mar 2018 10:10:11 GMT',
-37 verbose headers   via: '1.1 varnish',
-37 verbose headers   connection: 'keep-alive',
-37 verbose headers   'x-served-by': 'cache-syd18928-SYD',
-37 verbose headers   'x-cache': 'MISS',
-37 verbose headers   'x-cache-hits': '0',
-37 verbose headers   'x-timer': 'S1521281410.476572,VS0,VE896',
-37 verbose headers   vary: 'Accept-Encoding, Accept' }
-38 verbose request invalidating /Users/paulitto/.npm/registry.npmjs.org/quickgrid on PUT
-39 error publish Failed PUT 403
-40 verbose stack Error: You cannot publish over the previously published versions: 1.0.0. : quickgrid
-40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
-40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
-40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
-40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
-40 verbose stack     at emitTwo (events.js:106:13)
-40 verbose stack     at Request.emit (events.js:191:7)
-40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1048:10)
-40 verbose stack     at emitOne (events.js:96:13)
-40 verbose stack     at Request.emit (events.js:188:7)
-40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:969:12)
-41 verbose statusCode 403
-42 verbose pkgid quickgrid
-43 verbose cwd /Users/paulitto/Dev/quickgrid
-44 error Darwin 15.6.0
-45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
-46 error node v6.10.1
-47 error npm  v3.10.10
-48 error code E403
-49 error You cannot publish over the previously published versions: 1.0.0. : quickgrid
-50 error If you need help, you may report this error at:
-50 error     <https://github.com/npm/npm/issues>
-51 verbose exit [ 1, true ]
+4 info git [ 'status', '--porcelain' ]
+5 verbose stack Error: Git working directory not clean.
+5 verbose stack M README.md
+5 verbose stack     at /usr/local/lib/node_modules/npm/lib/version.js:247:19
+5 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/no-progress-while-running.js:21:8
+5 verbose stack     at ChildProcess.exithandler (child_process.js:195:7)
+5 verbose stack     at emitTwo (events.js:106:13)
+5 verbose stack     at ChildProcess.emit (events.js:191:7)
+5 verbose stack     at maybeClose (internal/child_process.js:886:16)
+5 verbose stack     at Socket.<anonymous> (internal/child_process.js:342:11)
+5 verbose stack     at emitOne (events.js:96:13)
+5 verbose stack     at Socket.emit (events.js:188:7)
+5 verbose stack     at Pipe._handle.close [as _onclose] (net.js:501:12)
+6 verbose cwd /Users/paulitto/Dev/quickgrid
+7 error Darwin 15.6.0
+8 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "version" "patch"
+9 error node v6.10.1
+10 error npm  v3.10.10
+11 error Git working directory not clean.
+11 error M README.md
+12 error If you need help, you may report this error at:
+12 error     <https://github.com/npm/npm/issues>
+13 verbose exit [ 1, true ]

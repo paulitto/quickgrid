@@ -2,7 +2,7 @@
 quick and simple jquery data grid
 
 ## usage
-
+```javascript
     $(domElement).quickGrid({
         data: [
             {
@@ -26,3 +26,4 @@ quick and simple jquery data grid
             }
         }
     })
+```
