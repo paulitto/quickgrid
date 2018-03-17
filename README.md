@@ -16,7 +16,7 @@ quick and simple jquery data grid
         ],
         columns: {
             date: {
-                property1: false,
+                visible: false,
                 title: "Title"
             },
             population: {
