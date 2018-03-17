@@ -4,7 +4,9 @@
   "description": "quick jquery data grid",
   "main": "quickgrid.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack && webpack-dev-server --open --config webpack.config.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,9 @@
     "jquery": "^3.3.1"
   },
   "devDependencies": {
-    "lite-server": "^2.3.0"
+    "css-loader": "^0.28.11",
+    "style-loader": "^0.20.3",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
   }
 }

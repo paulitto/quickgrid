@@ -68,11 +68,16 @@
     float:left;
 }
 
+.qgrd i {
+    font-style: normal;
+}
+
 .qgrd-icon-sort {
     color: #777;
 }
 .qgrd-icon-sort.up:before {
     content:"▲";
+    text-decoration-style: none;
 }
 
 .qgrd-icon-sort.down:before {
@@ -80,15 +85,16 @@
 }
 
 .qgrd-remove-row-btn:before {
-    content:"🞮";        
+    content:"✖︎";        
 }
 
 .qgrd-add-row-btn:before {
-    content:"🞧";    
+    content:"✚";    
 }
 
 .qgrd-customize-btn:before {
     content: "⚙";
+    margin-left: -2px;
 }
 
 .qgrd-edit-row-btn:before {
@@ -127,6 +133,7 @@
     height: 25px;
     width: 25px;
     transition: all 0.5s ease;
+    position: relative;
 }
 
 .qgrd button:active, .qgrd button:focus {
@@ -208,7 +215,7 @@ form.qgrd-modal-form input[type='checkbox']{
 }
 
 .qgrd-modal-dismiss:before {
-    content:"🞮";        
+    content:"✖︎";        
 }
 .qgrd-modal-dismiss {
     cursor: pointer;
