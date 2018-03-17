@@ -1,5 +1,6 @@
 const path = require('path');
 var webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
  entry: { 
@@ -9,10 +10,7 @@ module.exports = {
     contentBase: './dist'
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    })
+    new UglifyJSPlugin()
   ],
   module: {
     rules: [
@@ -26,7 +24,7 @@ module.exports = {
   ]
   },
   output: {
-    filename: 'quickgrid.bundle.js',
+    filename: 'quickgrid.min.js',
     path: path.resolve(__dirname, 'dist')
   } 
 };
