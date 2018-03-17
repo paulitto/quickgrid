@@ -1,0 +1,29 @@
+{
+  "name": "quickgrid",
+  "version": "1.0.0",
+  "description": "quick jquery data grid",
+  "main": "quickgrid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulitto/quickgrid.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "data grid",
+    "data-grid",
+    "datagrid",
+    "grid"
+  ],
+  "author": "Pavlo Tatarenko",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  }
+}

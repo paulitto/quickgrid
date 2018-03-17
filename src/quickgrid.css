@@ -1,0 +1,217 @@
+
+.qgrd-wrap {
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.22), 0 1px 25px 0 rgba(0, 0, 0, 0.21);
+    padding:10px;
+    overflow: auto;
+
+}
+
+.qgrd {
+    color: #777;
+    border-collapse: collapse;        
+    font-family: "Roboto", sans-serif;
+    width: 100%;
+}
+
+.qgrd thead {
+    border-bottom: 1px solid #DCDCDC;
+}
+
+.qgrd tbody:before {
+    content: '';
+    display: block;
+    height: 10px;
+}
+.qgrd tbody tr:nth-child(odd) {
+    background-color: #F5F5F5;
+}
+
+.qgrd tbody tr:hover {
+    background-color: #EEF3FA;
+}
+
+.qgrd th {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+
+.qgrd td {
+    padding:5px;
+}
+
+.qgrd .qgrd-header-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.qgrd .qgrd-header-text-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.qgrd-header-filter {
+    border: 1px solid #DCDCDC;   
+    border-radius: 3px;
+    padding: 3px;
+    min-width: 50px;
+    width: 100%;
+}
+
+.qgrd th:hover {
+    background-color: #eaeaea;
+}
+
+.qgrd th > div{
+    float:left;
+}
+
+.qgrd-icon-sort {
+    color: #777;
+}
+.qgrd-icon-sort.up:before {
+    content:"▲";
+}
+
+.qgrd-icon-sort.down:before {
+    content:"▼";
+}
+
+.qgrd-remove-row-btn:before {
+    content:"🞮";        
+}
+
+.qgrd-add-row-btn:before {
+    content:"🞧";    
+}
+
+.qgrd-customize-btn:before {
+    content: "⚙";
+}
+
+.qgrd-edit-row-btn:before {
+    content:"✎";        
+}
+
+.qgrd-remove-row-btn, .qgrd-add-row-btn, .qgrd-edit-row-btn, .qgrd-icon-sort, .qgrd-customize-btn {
+    cursor:pointer;
+}
+
+.qgrd-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.qgrd th:first-child {
+    vertical-align: bottom;
+}
+
+.qgrd th:first-child .qgrd-actions-header {
+    display: flex;
+    justify-content: center;
+    float: none;
+}
+
+.qgrd-actions-header button + button,
+.qgrd-actions button + button{
+    margin-left:5px;
+}
+
+.qgrd button {
+    background-color: #EEF3FA;
+    border: 1px solid #DCDCDC;   
+    color: #777;
+    border-radius: 20px;
+    height: 25px;
+    width: 25px;
+    transition: all 0.5s ease;
+}
+
+.qgrd button:active, .qgrd button:focus {
+    outline: none;
+}
+
+.qgrd button:hover{
+    color: #333;
+    border-color: #333;
+    transform: rotate(360deg);
+}
+
+/*    quick modal styles  */
+.qgrd-modal {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    font-family: "Roboto", sans-serif;
+}
+.qgrd-modal-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 10
+}
+.qgrd-modal-container {
+    position :fixed;
+    background-color: white;
+    z-index: 11;
+    top : 50%;
+    left : 50%;
+    width: 400px;
+    height: 300px;                
+    margin-top: -150px;
+    margin-left: -200px;    
+
+    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+form.qgrd-modal-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+form.qgrd-modal-form input[type='checkbox']{
+    height: 20px;
+    width: 20px;
+}
+
+.qgrd-modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #cacaca;
+    margin: 0 10px;
+}
+
+.qgrd-modal-content {
+    padding:10px;
+    flex-grow: 1;
+}
+
+.qgrd-modal-content > div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.qgrd-modal-footer {
+    padding: 10px 0;
+    border-top: 1px solid #cacaca;
+    margin: 0 10px;
+    text-align: right;
+}
+
+.qgrd-modal-dismiss:before {
+    content:"🞮";        
+}
+.qgrd-modal-dismiss {
+    cursor: pointer;
+    font-style: normal;
+    color: #777;    
+}
