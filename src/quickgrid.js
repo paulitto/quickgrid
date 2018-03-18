@@ -18,7 +18,7 @@
         //events
         this.$modalOverlay.click(function () {
             self.$modal.remove();
-        })
+        });
 
         function build() {
             var self = this;
@@ -73,8 +73,8 @@
         init.call(this);
 
         var self = this;
-        this.$table.find('th').on("click", function (e) {
 
+        this.$table.on("click", 'th', function (e) {
             if ($(e.target).hasClass('qgrd-header-filter') || $(this).find('.qgrd-actions-header').length) {
                 return;
             }
@@ -91,9 +91,7 @@
                 sort.call(self, sortKey, true);
                 $sortIcon.addClass('up');
             }
-        });
-
-        this.$table.on("click", 'tr', function (e) {
+        }).on("click", 'tr', function (e) {
             if (typeof self.settings.onrowclick === "function") {
                 console.log($(this).data());
                 self.settings.onrowclick($(this).data('rowdata'), $(this).index());
@@ -106,9 +104,10 @@
             var rowIndex = $thistr.index();
             self.settings.data.splice(rowIndex, 1);
             if (typeof self.settings.onrowdelete === "function") {
-                self.settings.onrowdelete(rowIndex, $thistr.data("rowdata"));
-                rebuild.call(self);
+                self.settings.onrowdelete(rowIndex, $thistr.data("rowdata"));                
             }
+            rebuild.call(self);
+            $(this.container).trigger( "qgrd:removerow", $thistr.data("rowdata"), rowIndex);
         }).on("click", '.qgrd-add-row-btn', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -143,14 +142,12 @@
                         self.keys.forEach((key) => {
                             self.settings.columns[key] = self.settings.columns[key] || {};
                             self.settings.columns[key].visible = !!updatedColumnsVisibility[key];
-                        })
+                        });
                         
                         rebuild.call(self, true);                        
                     }
                 });
-        });
-
-        this.$table.find('.qgrd-header-filter').on("change", function () {
+        }).on("change", '.qgrd-header-filter', function () {
 
             var filterValue = $(this).val();
             var filterKey = $(this).closest('th').data('key');
@@ -162,10 +159,10 @@
                 else {
                     $row.show();
                 }
-            })
+            });
         });
 
-    };
+    }
 
     QuickGrid.prototype.updateRow = function (rownum, rowData) {
 
@@ -178,11 +175,13 @@
         }
 
         rebuild.call(this);
-    }
+        $(this.container).trigger( "qgrd:updaterow", rowData, rownum);
+    };
 
     QuickGrid.prototype.addRow = function (rowData) {
         this.settings.data.push(rowData);
         rebuild.call(this);
+        $(this.container).trigger( "qgrd:addrow", rowData);
     }
 
 
@@ -222,7 +221,7 @@
         });
 
         rebuild.call(this, true);
-    };
+    }
 
     function rebuildHeaders() {
         this.$thead.html("");
@@ -346,7 +345,7 @@
                                 rowDataToAdd[prop] = "";
                             }
                         }
-                    })
+                    });
 
                     var modal = new QuickModal($('body')[0], rowDataToAdd,
                         {
