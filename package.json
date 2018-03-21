@@ -1,6 +1,6 @@
 {
   "name": "quickgrid",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "quick jquery data grid",
   "main": "dist/quickgrid.min.js",
   "scripts": {
