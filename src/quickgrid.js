@@ -52,7 +52,6 @@
             this.$modalSubmitBtn = $('<input type="submit" class="qgrd-modal-submit" value="OK"/>').appendTo(this.$modalFooter);
 
             for (var key in data) {
-                console.log(data[key]);
                 if (typeof data[key] === "boolean") {
                     var isChecked = data[key] ? "checked" : "";
                     $('<div><label>' + key + '</label><input type="checkbox" name="' + key + '" ' + isChecked + '/></div>').appendTo(this.$modalContent);
@@ -61,7 +60,6 @@
                     $('<div><label>' + key + '</label><input name="' + key + '" value="' + data[key] + '"/></div>').appendTo(this.$modalContent);
                 }
             }
-            //this.$modalContent.html(JSON.stringify(data));
         }
     }
 
@@ -93,7 +91,6 @@
             }
         }).on("click", 'tr', function (e) {
             if (typeof self.settings.onrowclick === "function") {
-                console.log($(this).data());
                 self.settings.onrowclick($(this).data('rowdata'), $(this).index());
             }
         }).on("click", '.qgrd-remove-row-btn', function (e) {
@@ -183,7 +180,6 @@
         rebuild.call(this);
         $(this.container).trigger( "qgrd:addrow", rowData);
     }
-
 
     // sort grid
     function sort(sortKey, asc) {
@@ -368,7 +364,6 @@
                         });
                 },
                 onrowdelete: function (rowdata, rownum) {
-                    console.log("deleting row", rownum, rowdata);
                 }
             }
             var settings = defaultOptions;

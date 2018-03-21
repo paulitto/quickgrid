@@ -45,11 +45,13 @@
 .qgrd .qgrd-header-wrap {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .qgrd .qgrd-header-text-wrap {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
 }
 
 .qgrd-header-filter {
