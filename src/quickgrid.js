@@ -261,7 +261,7 @@
         this.$tbody.html("");
         //add records
         this.settings.data.forEach(rowData => {
-            $tr = $("<tr></tr>").appendTo(this.$tbody);
+            var $tr = $("<tr></tr>").appendTo(this.$tbody);
 
             //add row action buttons
             var $tdActions = $("<td class='qgrd-actions'></td>").appendTo($tr);
