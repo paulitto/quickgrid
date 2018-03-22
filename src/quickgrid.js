@@ -185,12 +185,23 @@
     function sort(sortKey, asc) {
         var self = this;
         self.settings.data.sort((a, b) => {
-            if (asc) {
-                return a[sortKey] > b[sortKey];
+            var avalue = a[sortKey];
+            var bvalue = b[sortKey];
+
+            if (typeof avalue == 'number' || typeof avalue.getMonth === 'function') {
+                return asc ? avalue - bvalue : bvalue - avalue;
             }
             else {
-                return a[sortKey] < b[sortKey];
-            }
+                avalue = avalue.toUpperCase();
+                bvalue = bvalue.toUpperCase();
+                if (avalue < bvalue) {
+                    return asc ? -1 : 1;
+                }
+                if (avalue > bvalue) {
+                    return asc ? 1 : -1;
+                }
+            }            
+            return 0;
         });
         rebuild.call(this);
     }
