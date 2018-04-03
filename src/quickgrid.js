@@ -1,68 +1,4 @@
 (function ($) {
-
-    //quick modal for editing rows, just default way to edit rows, any other can be used by reusing onrowclick event to get row data and updateRow quickgrid public method
-    function QuickModal(container, data, options) {
-        this.container = container;
-        this.data = data;
-
-        this.settings = {
-            width: 500, height: 400
-        };
-        if (options) {
-            $.extend(this.settings, options);
-        }
-
-        var self = this;
-        build.call(this);
-
-        //events
-        this.$modalOverlay.click(function () {
-            self.$modal.remove();
-        });
-
-        function build() {
-            var self = this;
-            this.$modal = $('<div class="qgrd-modal"></div>').appendTo(this.container);
-            this.$modalOverlay = $('<div class="qgrd-modal-overlay"></div>').appendTo(this.$modal);
-
-            this.$modalContainer = $('<div class="qgrd-modal-container"></div>').appendTo(this.$modal).css({
-                "width": this.settings.width + "px",
-                "height": this.settings.height + "px",
-                "margin-top": -(this.settings.height / 2) + "px",
-                "margin-left": -(this.settings.width / 2) + "px"
-            });
-            this.$modalForm = $('<form class="qgrd-modal-form"></form>').appendTo(this.$modalContainer).on("submit", function (e) {
-                e.preventDefault();
-                var objData = {};
-                $(this).serializeArray().forEach((item) => {
-                    objData[item.name] = item.value;
-                });
-                if (typeof self.settings.onsubmit === "function") {
-                    self.settings.onsubmit(objData);
-                }
-                self.$modal.remove();
-            });
-
-            this.$modalHeader = $('<div class="qgrd-modal-header">' + options.title + '</div>').appendTo(this.$modalForm);
-            this.$modalDismissBtn = $('<button class="qgrd-modal-dismiss"></button>').appendTo(this.$modalHeader).click(function () {
-                self.$modal.remove();
-            });
-            this.$modalContent = $('<div class="qgrd-modal-content"></div>').appendTo(this.$modalForm);
-            this.$modalFooter = $('<div class="qgrd-modal-footer"></div>').appendTo(this.$modalForm);
-            this.$modalSubmitBtn = $('<input type="submit" class="qgrd-modal-submit" value="OK"/>').appendTo(this.$modalFooter);
-
-            for (var key in data) {
-                if (typeof data[key] === "boolean") {
-                    var isChecked = data[key] ? "checked" : "";
-                    $('<div><label>' + key + '</label><input type="checkbox" name="' + key + '" ' + isChecked + '/></div>').appendTo(this.$modalContent);
-                }
-                else {
-                    $('<div><label>' + key + '</label><input name="' + key + '" value="' + data[key] + '"/></div>').appendTo(this.$modalContent);
-                }
-            }
-        }
-    }
-
     //quick grid class
     function QuickGrid(container, settings) {
         this.container = container;
@@ -103,7 +39,7 @@
             if (typeof self.settings.onrowdelete === "function") {
                 self.settings.onrowdelete(rowIndex, $thistr.data("rowdata"));                
             }
-            rebuild.call(self);
+            rebuildBody.call(self);
             $(this.container).trigger( "qgrd:removerow", $thistr.data("rowdata"), rowIndex);
         }).on("click", '.qgrd-add-row-btn', function (e) {
             e.preventDefault();
@@ -141,7 +77,7 @@
                             self.settings.columns[key].visible = !!updatedColumnsVisibility[key];
                         });
                         
-                        rebuild.call(self, true);                        
+                        rebuildBody.call(self);                        
                     }
                 });
         }).on("change", '.qgrd-header-filter', function () {
@@ -157,8 +93,18 @@
                     $row.show();
                 }
             });
-        });
+        })
+        
+        this.$tableWrap.on("click", '.qgrd-pagination-page-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
 
+            var pageNum = $(this).data('page');
+            if (typeof pageNum !== "undefined") {
+                self.settings.pagination.activePage = pageNum;
+                rebuildBody.call(self);
+            }
+        });        
     }
 
     QuickGrid.prototype.updateRow = function (rownum, rowData) {
@@ -171,13 +117,13 @@
             this.settings.data[rownum][key] = rowData[key];
         }
 
-        rebuild.call(this);
+        rebuildBody.call(this);
         $(this.container).trigger( "qgrd:updaterow", rowData, rownum);
     };
 
     QuickGrid.prototype.addRow = function (rowData) {
         this.settings.data.push(rowData);
-        rebuild.call(this);
+        rebuildBody.call(this);
         $(this.container).trigger( "qgrd:addrow", rowData);
     }
 
@@ -203,7 +149,7 @@
             }            
             return 0;
         });
-        rebuild.call(this);
+        rebuildBody.call(this);
     }
 
     //build grid html
@@ -218,6 +164,7 @@
         this.keys = [];
         this.$headers = [];
         this.$rows = [];
+        this.$pagination = [];
 
         this.settings.data.forEach(rowData => {
             for (var key in rowData) {
@@ -227,7 +174,7 @@
             }
         });
 
-        rebuild.call(this, true);
+        rebuild.call(this);
     }
 
     function rebuildHeaders() {
@@ -256,18 +203,34 @@
         });
     }
 
-    function rebuild(withHeaders) {
-        var self = this;
+    function rebuild() {
+        
+        rebuildHeaders.call(this);
+        rebuildBody.call(this);
 
-
-        if (withHeaders) {
-            rebuildHeaders.call(this);
+        if (this.settings.pagination) {
+            buildPagination.call(this);
         }
+    };
 
+    function rebuildBody() {
+        var self = this;
         this.$tbody = $(this.container).find('tbody');
         this.$tbody.html("");
         //add records
-        this.settings.data.forEach(rowData => {
+
+        var dataPortion = this.settings.data;
+        if (this.settings.pagination) {
+            dataPortion = this.settings.data.slice(this.settings.pagination.recordsPerPage * this.settings.pagination.activePage , this.settings.pagination.recordsPerPage * (this.settings.pagination.activePage + 1));
+            if (this.$pagination && this.$pagination.length) {
+                this.$pagination.find('.qgrd-pagination-page-link').removeClass('active');                
+                this.$pagination.find('.qgrd-pagination-page-link').filter(function() {
+                    return $(this).data('page') === self.settings.pagination.activePage;
+                }).addClass('active');
+            }
+        }
+
+        dataPortion.forEach(rowData => {
             var $tr = $("<tr></tr>").appendTo(this.$tbody);
 
             //add row action buttons
@@ -285,7 +248,21 @@
 
             this.$rows.push($tr);
         });
-    };
+    }
+
+    function buildPagination() {
+        this.$pagination = $("<ul class='qgrd-pagination-ul'>").appendTo(this.$tableWrap);
+        var pagesNumber = Math.ceil((this.settings.data.length / this.settings.pagination.recordsPerPage));
+
+        for (var i = 0; i < pagesNumber; i++) {
+            var $paginationLi = $("<li class='qgrd-pagination-page'></li>").appendTo(this.$pagination);
+            var $paginationPageLink = $("<a href='#' class='qgrd-pagination-page-link'>" + (i + 1) + "</a>").appendTo($paginationLi);
+            $paginationPageLink.data('page', i);
+            if (this.settings.pagination.activePage == i) {
+                $paginationPageLink.addClass('active');
+            }
+        }
+    }
 
     function isColumnVisible(key) {
         if (!this.settings.columns[key]) {
@@ -375,6 +352,10 @@
                         });
                 },
                 onrowdelete: function (rowdata, rownum) {
+                },
+                pagination: {
+                    recordsPerPage: 10,
+                    activePage: 0
                 }
             }
             var settings = defaultOptions;
@@ -390,4 +371,66 @@
         });
     }
 
+    //quick modal for editing rows, just default way to edit rows, any other can be used by reusing onrowclick event to get row data and updateRow quickgrid public method
+    function QuickModal(container, data, options) {
+        this.container = container;
+        this.data = data;
+
+        this.settings = {
+            width: 500, height: 400
+        };
+        if (options) {
+            $.extend(this.settings, options);
+        }
+
+        var self = this;
+        build.call(this);
+
+        //events
+        this.$modalOverlay.click(function () {
+            self.$modal.remove();
+        });
+
+        function build() {
+            var self = this;
+            this.$modal = $('<div class="qgrd-modal"></div>').appendTo(this.container);
+            this.$modalOverlay = $('<div class="qgrd-modal-overlay"></div>').appendTo(this.$modal);
+
+            this.$modalContainer = $('<div class="qgrd-modal-container"></div>').appendTo(this.$modal).css({
+                "width": this.settings.width + "px",
+                "height": this.settings.height + "px",
+                "margin-top": -(this.settings.height / 2) + "px",
+                "margin-left": -(this.settings.width / 2) + "px"
+            });
+            this.$modalForm = $('<form class="qgrd-modal-form"></form>').appendTo(this.$modalContainer).on("submit", function (e) {
+                e.preventDefault();
+                var objData = {};
+                $(this).serializeArray().forEach((item) => {
+                    objData[item.name] = item.value;
+                });
+                if (typeof self.settings.onsubmit === "function") {
+                    self.settings.onsubmit(objData);
+                }
+                self.$modal.remove();
+            });
+
+            this.$modalHeader = $('<div class="qgrd-modal-header">' + options.title + '</div>').appendTo(this.$modalForm);
+            this.$modalDismissBtn = $('<button class="qgrd-modal-dismiss"></button>').appendTo(this.$modalHeader).click(function () {
+                self.$modal.remove();
+            });
+            this.$modalContent = $('<div class="qgrd-modal-content"></div>').appendTo(this.$modalForm);
+            this.$modalFooter = $('<div class="qgrd-modal-footer"></div>').appendTo(this.$modalForm);
+            this.$modalSubmitBtn = $('<input type="submit" class="qgrd-modal-submit" value="OK"/>').appendTo(this.$modalFooter);
+
+            for (var key in data) {
+                if (typeof data[key] === "boolean") {
+                    var isChecked = data[key] ? "checked" : "";
+                    $('<div><label>' + key + '</label><input type="checkbox" name="' + key + '" ' + isChecked + '/></div>').appendTo(this.$modalContent);
+                }
+                else {
+                    $('<div><label>' + key + '</label><input name="' + key + '" value="' + data[key] + '"/></div>').appendTo(this.$modalContent);
+                }
+            }
+        }
+    }
 })(jQuery);

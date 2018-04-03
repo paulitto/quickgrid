@@ -95,8 +95,9 @@
 }
 
 .qgrd-customize-btn:before {
-    content: "⚙";
-    margin-left: -2px;
+    content: "●●●";
+    margin-left: -1px;
+    font-size: 7px;
 }
 
 .qgrd-edit-row-btn:before {
@@ -146,6 +147,36 @@
     color: #333;
     border-color: #333;
     transform: rotate(360deg);
+}
+/* pagination styles */
+.qgrd-pagination-ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly;    
+    flex-flow: row wrap;
+}
+
+.qgrd-pagination-ul li {    
+    margin: 10px 0;
+}
+
+.qgrd-pagination-ul li a {
+    text-decoration: none;
+    color: #333;
+    border: 1px solid transparent;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+
+.qgrd-pagination-ul li a:hover {
+    border: 1px solid #333;
+}
+
+.qgrd-pagination-ul li a:active, .qgrd-pagination-ul li a.active {
+    border: 1px solid #333;
+    background-color: #656565;
+    color: #fff;
 }
 
 /*    quick modal styles  */
